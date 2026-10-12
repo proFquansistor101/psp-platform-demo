@@ -1,0 +1,23 @@
+name: Build PSP EBOOT
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: pspdev/pspdev:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build homebrew
+        run: make
+      - name: Prepare Memory Stick folder
+        run: |
+          mkdir -p release/PSP/GAME/PSPPLATFORM
+          cp EBOOT.PBP release/PSP/GAME/PSPPLATFORM/EBOOT.PBP
+      - name: Upload playable build
+        uses: actions/upload-artifact@v4
+        with:
+          name: PSP-Platform-Demo-EBOOT
+          path: release/

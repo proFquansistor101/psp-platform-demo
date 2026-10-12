@@ -1,0 +1,7 @@
+*.o
+*.elf
+*.prx
+*.SFO
+EBOOT.PBP
+PARAM.SFO
+release/
